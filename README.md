@@ -135,9 +135,130 @@ ans =
 ```
 
 # CylindricalToCartesian
+`CylindricalToCartesian(v)` converts a 3x1 vector $v=\begin{bmatrix}\rho \\\theta\\ z\end{bmatrix}$ containing cylindrical coordinates to a 3x1 vector containing Cartesian coordinates
+
+```
+>> CylindricalToCartesian([1; 1.5708; 0])
+
+ans =
+
+   -0.0000
+    1.0000
+         0
+```
 # SphericalToCartesian
+`SphericalToCartesian(v)` converts a 3x1 vector $v=\begin{bmatrix} r \\\theta\\ \phi\end{bmatrix}$ containing spherical coordinates to a 3x1 vector containing Cartesian coordinates
+
+```
+>> SphericalToCartesian([1.7321; 0.9553; 0.7854])
+
+ans =
+
+    1.0000
+    1.0000
+    1.0001
+
+```
+
 # QuatMult
+`Quatmult(q1, q2)` multiplies 2 4x1 vectors that represent quaternions $q=\begin{bmatrix} w \\ x\\ y \\ z\end{bmatrix}$
+
+```
+>> QuatMult([0.9239; -0.3827; 0; 0], [0.8660; 0 ; 0.5; 0])
+
+ans =
+
+    0.8001
+   -0.3314
+    0.4620
+   -0.1913
+```
+
 # QuatToRot
+`QuatToRot(q)` converts a 4x1 vector representing a quaternion $q=\begin{bmatrix} w \\ x\\ y \\ z\end{bmatrix}$ to a 3x3 rotation matrix
+
+```
+>> QuatToRot([0.7071; 0 ; 0.7071; 0])
+
+ans =
+
+         0         0    1.0000
+         0    1.0000         0
+   -1.0000         0         0
+
+```
+
 # RotToQuat
+`RotToQuat(C)` converts a 3x3 matrix into a 4x1 vector representing a quaternion $q=\begin{bmatrix} w \\ x\\ y \\ z\end{bmatrix}$
+
+```
+>> RotToQuat(RotY(pi / 2))
+
+ans =
+
+    0.7071
+         0
+    0.7071
+         0
+```
+
 # AngleAxisToRot
+`AngleAxisToRot(n)` converts a 4x1 vector $\begin{bmatrix}\theta \\ x \\ y \\ z\end{bmatrix}$ into a 3x3 rotation matrix,
+
+```
+>> AngleAxisToRot([1.0472; 0 ; 1; 0])
+
+ans =
+
+    0.5000         0    0.8660
+         0    1.0000         0
+   -0.8660         0    0.5000
+
+```
+
+
 # RotToAngleAxis
+`RotToAngleAxis(n)` converts a 3x3 rotation matrix into a 4x1 vector $\begin{bmatrix}\theta \\ x \\ y \\ z\end{bmatrix}$.
+
+```
+>> RotToAngleAxis(RotY(pi / 3))
+
+ans =
+
+    1.0472
+         0
+    1.0000
+         0
+```
+
+
+# RotToZYX
+
+`RotToZYX(C)` converts a 3x3 rotation matrix into a 3x1 vector containg $ZYX$ Euler angles $\begin{bmatrix} z \\ y \\ x\end{bmatrix}$.
+
+```
+>> RotToZYX(RotZ(pi / 3) * RotY(pi / 6) * RotX(- pi/ 4))
+
+ans =
+
+    1.0472
+    0.5236
+   -0.7854
+```
+
+# RotToZYZ
+
+`RotToZYZ(C)` converts a 3x3 rotation matrix into a 3x1 vector containg $ZYZ$ Euler angles $\begin{bmatrix} z_1 \\ y \\ z_2\end{bmatrix}$.
+
+```
+>> RotToZYZ(RotZ(pi / 4) * RotY(pi / 5) * RotZ(- pi / 2))
+
+ans =
+
+    0.7854
+    0.6283
+   -1.5708
+
+```
+
+
