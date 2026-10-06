@@ -6,7 +6,9 @@ load_scripts
 ```
 in the matlab terminal to load the scripts. Note: load_scripts.m and the scripts folder have to be in the current directory for it to work. If it fails, either:
 - copy and paste the folder and the load_scripts file into your currnet folder
+
 Or
+
 - go to this directory, and then run load_scripts
 
 # RotX(theta)
@@ -36,7 +38,7 @@ ans =
 $$R_y(\theta) = \begin{bmatrix}
 cos(\theta) & 0 & sin(\theta) \\
 0 & 1 & 0 \\
-- sin(\theta) & 0 & cos(\theta) \\
+-sin(\theta) & 0 & cos(\theta) \\
 \end{bmatrix}$$
 
 ```
@@ -89,7 +91,7 @@ ans =
 # InvHomogenous(H)
 `InvHomogenous(H)` takes a 4x4 homogenous matrix and gives the inverse
 
-$$H = \begin{bmatrix}
+$$H^{-1} = \begin{bmatrix}
 C_{\mathcal{AB}}^T & -C_{\mathcal{AB}}^T *_\mathcal{A}r_{\mathcal{AB}}\\
 0_{1\times3} & 1
 \end{bmatrix}$$
