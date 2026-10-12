@@ -1,0 +1,34 @@
+% input: H is a 4 x 4 x n tensor, it is basically a list of all the homogenous
+% transformations between each frame. 
+% So like H(:, :, 1) = H_I1
+% H(:, :, 2) = H_12
+% H(:, :, 3) = H_23
+% etc. Note that they are all homogenous matrices
+% and prismatic_axes is a 3 x n matrix, where each entry is the prismatic axis 
+% of the prismatic joint. if it is a revolute joint, then put 0 0 0.
+% revolute_axes(:, 1) = prismatic axis of first joint
+% revolute_axes(:, 2) = prismatic axis of second joint
+% etc
+function J_P = jointToPosJac(H_in, prismatic_axes, J_R)
+    [h w n] = size(H_in);
+    J_P = zeros(3, n);
+    
+    H = H_in; % Doing this just to be sure we don't modify H_in
+    for i = 2:n
+        H(:, :, i) = H(:, :, i - 1) * H(:, :, i);
+    end
+    
+    end_pos = H(:, :, n) * [0; 0; 0; 1];
+    end_pos = end_pos(1:3);
+
+    for i = 1:n
+      if prismatic_axes(:, i) == 0
+          p = H(:, :, i) * [0 ; 0; 0; 1];
+          r =  end_pos - p(1:3);
+          J_P(:, i) = cross(J_R(:, i), r);
+      else
+          J_P(:, i) = prismatic_axes(:,i);
+      end
+    end
+    
+end

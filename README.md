@@ -110,6 +110,18 @@ ans =
 
 # CartesianToCylindrical
 `CartesianToCylindrical(v)` converts a 3x1 vector `v=[x ; y ; z]` containing cartesian coordinates into a vector containing Cylindrical coordinates $\begin{bmatrix}\rho \\ \theta \\ z\end{bmatrix}$
+$$
+\rho = \sqrt{x^2+y^2}
+$$
+
+$$
+\theta = \operatorname{atan2}(y,x)
+$$
+
+$$
+z=z
+$$
+
 ```
 >> CartesianToCylindrical([0 ; 1 ; 0])
 
@@ -124,6 +136,24 @@ ans =
 # CartesianToSpherical
 
 `CartesianToSpherical(v)` converts a 3x1 vector `v=[x ; y ; z]` containing cartesian coordinates into a vector containing Spherical coordinates $\begin{bmatrix}r \\ \theta \\ \phi\end{bmatrix}$
+
+$$
+r = \sqrt{x^2+y^2+z^2}
+$$
+
+$$
+\theta =
+\operatorname{atan2}
+\left(
+\sqrt{x^2+y^2},
+z
+\right)
+$$
+
+$$
+\phi = \operatorname{atan2}(y,x)
+$$
+
 ```
 >> CartesianToSpherical([1 ; 1 ; 1])
 
@@ -137,6 +167,18 @@ ans =
 # CylindricalToCartesian
 `CylindricalToCartesian(v)` converts a 3x1 vector $v=\begin{bmatrix}\rho \\\theta\\ z\end{bmatrix}$ containing cylindrical coordinates to a 3x1 vector containing Cartesian coordinates
 
+$$
+x = \rho\cos(\theta)
+$$
+
+$$
+y = \rho\sin(\theta)
+$$
+
+$$
+z=z
+$$
+
 ```
 >> CylindricalToCartesian([1; 1.5708; 0])
 
@@ -148,6 +190,17 @@ ans =
 ```
 # SphericalToCartesian
 `SphericalToCartesian(v)` converts a 3x1 vector $v=\begin{bmatrix} r \\\theta\\ \phi\end{bmatrix}$ containing spherical coordinates to a 3x1 vector containing Cartesian coordinates
+$$
+x = r\sin(\theta)\cos(\phi)
+$$
+
+$$
+y = r\sin(\theta)\sin(\phi)
+$$
+
+$$
+z = r\cos(\theta)
+$$
 
 ```
 >> SphericalToCartesian([1.7321; 0.9553; 0.7854])
@@ -163,6 +216,22 @@ ans =
 # QuatMult
 `Quatmult(q1, q2)` multiplies 2 4x1 vectors that represent quaternions $q=\begin{bmatrix} w \\ x\\ y \\ z\end{bmatrix}$
 
+$$
+q_1\otimes q_2 =
+\begin{bmatrix}
+w_1 & -x_1 & -y_1 & -z_1\\
+x_1 & w_1 & -z_1 & y_1\\
+y_1 & z_1 & w_1 & -x_1\\
+z_1 & -y_1 & x_1 & w_1
+\end{bmatrix}
+\begin{bmatrix}
+w_2\\
+x_2\\
+y_2\\
+z_2
+\end{bmatrix}
+$$
+
 ```
 >> QuatMult([0.9239; -0.3827; 0; 0], [0.8660; 0 ; 0.5; 0])
 
@@ -177,6 +246,15 @@ ans =
 # QuatToRot
 `QuatToRot(q)` converts a 4x1 vector representing a quaternion $q=\begin{bmatrix} w \\ x\\ y \\ z\end{bmatrix}$ to a 3x3 rotation matrix
 
+$$
+R =
+\begin{bmatrix}
+1-2(y^2+z^2) & 2(xy-wz) & 2(xz+wy)\\
+2(xy+wz) & 1-2(x^2+z^2) & 2(yz-wx)\\
+2(xz-wy) & 2(yz+wx) & 1-2(x^2+y^2)
+\end{bmatrix}
+$$
+
 ```
 >> QuatToRot([0.7071; 0 ; 0.7071; 0])
 
@@ -190,6 +268,40 @@ ans =
 
 # RotToQuat
 `RotToQuat(C)` converts a 3x3 matrix into a 4x1 vector representing a quaternion $q=\begin{bmatrix} w \\ x\\ y \\ z\end{bmatrix}$
+$$
+w =
+\frac{1}{2}
+\sqrt{
+C_{11}+C_{22}+C_{33}+1
+}
+$$
+
+$$
+x =
+\frac{1}{2}
+\operatorname{sign}(C_{32}-C_{23})
+\sqrt{
+C_{11}-C_{22}-C_{33}+1
+}
+$$
+
+$$
+y =
+\frac{1}{2}
+\operatorname{sign}(C_{13}-C_{31})
+\sqrt{
+-C_{11}+C_{22}-C_{33}+1
+}
+$$
+
+$$
+z =
+\frac{1}{2}
+\operatorname{sign}(C_{21}-C_{12})
+\sqrt{
+-C_{11}-C_{22}+C_{33}+1
+}
+$$
 
 ```
 >> RotToQuat(RotY(pi / 2))
