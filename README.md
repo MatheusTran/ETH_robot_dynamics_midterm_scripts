@@ -1,15 +1,9 @@
 
-# Running
-run the command 
-```matlab
-load_scripts 
-```
-in the matlab terminal to load the scripts. Note: load_scripts.m and the scripts folder have to be in the current directory for it to work. If it fails, either:
-- copy and paste the folder and the load_scripts file into your currnet folder
+# Using
 
-Or
+Copy and paste the scripts folder into your working folder, then run the `init_workspace` command that is given with the files.
 
-- go to this directory, and then run load_scripts
+Remember to zip the scripts folder with your submission
 
 # RotX(theta)
 
