@@ -24,7 +24,7 @@ function J_P = jointToPosJac(H_in, prismatic_axes, J_R)
     end_pos = end_pos(1:3);
 
     for i = 1:n
-      if prismatic_axes(:, i) == 0
+      if all(prismatic_axes(:, i) == 0)
           p = H(:, :, i) * [0 ; 0; 0; 1];
           r =  end_pos - p(1:3);
           J_P(:, i) = cross(J_R(:, i), r);
