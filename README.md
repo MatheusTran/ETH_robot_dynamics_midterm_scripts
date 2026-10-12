@@ -332,6 +332,8 @@ ans =
 # RotToAngleAxis
 `RotToAngleAxis(n)` converts a 3x3 rotation matrix into a 4x1 vector $\begin{bmatrix}\theta \\ x \\ y \\ z\end{bmatrix}$.
 
+Will return $\begin{bmatrix}0 \\ 0 \\ 0 \\ 0\end{bmatrix}$ in the case of 0 rotation
+
 ```
 >> RotToAngleAxis(RotY(pi / 3))
 
@@ -372,5 +374,79 @@ ans =
    -1.5708
 
 ```
+# joitToRotJac
+Converts an array of homogenous matrices and revolute axes into a rotational jacobian
+```
+>> H = Homogenous(eye(3), [5, 0, 0])
 
+H =
+
+     1     0     0     5
+     0     1     0     0
+     0     0     1     0
+     0     0     0     1
+
+>> H(:, :, 2) = Homogenous(RotX(pi/2), [0, 0, 0])
+
+H(:,:,1) =
+
+     1     0     0     5
+     0     1     0     0
+     0     0     1     0
+     0     0     0     1
+
+
+H(:,:,2) =
+
+    1.0000         0         0         0
+         0    0.0000   -1.0000         0
+         0    1.0000    0.0000         0
+         0         0         0    1.0000
+
+>> revolute_axes = [
+0, 1;
+0, 0;
+0, 0;
+]
+
+revolute_axes =
+
+     0     1
+     0     0
+     0     0
+
+>> jointToRotJac(H, revolute_axes)
+
+ans =
+
+     0     1
+     0     0
+     0     0
+```
+# jointToPosJac
+Converts an array of homogenous matrices, prismatic axes, and rotational jacobian into a position jacobian
+
+```
+>> prismatic_axes = [
+1, 0;
+0, 0;
+0, 0;
+]
+
+prismatic_axes =
+
+     1     0
+     0     0
+     0     0
+
+>> jointToPosJac(H, prismatic_axes, jointToRotJac(H, revolute_axes))
+
+ans =
+
+     1     0
+     0     0
+     0     0
+
+>> 
+```
 

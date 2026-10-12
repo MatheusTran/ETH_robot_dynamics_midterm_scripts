@@ -9,6 +9,8 @@
 % revolute_axes(:, 1) = prismatic axis of first joint
 % revolute_axes(:, 2) = prismatic axis of second joint
 % etc
+% J_R is the rotational jacobian. it is a 3xn matrix. Usuaully you would
+% just run the jointToRotJac and put it in here.
 function J_P = jointToPosJac(H_in, prismatic_axes, J_R)
     [h w n] = size(H_in);
     J_P = zeros(3, n);

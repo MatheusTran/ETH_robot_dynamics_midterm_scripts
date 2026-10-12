@@ -17,7 +17,7 @@ function J_R = jointToRotJac(H, revolute_axes)
     for i = 1:(n -1)
         C(:, :, i + 1) = C(1:3, 1:3, i) * H(1:3, 1:3, i + 1);
     end
-    for i = 1:6
+    for i = 1:n
         J_R(:, i)= C(:, :, i) * revolute_axes(:, i);
     end  
 end
